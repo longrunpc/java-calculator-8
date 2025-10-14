@@ -1,8 +1,8 @@
 package calculator.controller;
 
-import java.math.BigInteger;
-
+import calculator.view.ErrorView;
 import calculator.view.InputView;
+import calculator.view.OutputView;
 
 /**
  * 계산기 애플리케이션의 제어를 담당하는 컨트롤러 클래스
@@ -30,7 +30,7 @@ public class CalculatorController {
             // 입력
             String input = InputView.readInput();
             // 합계 계산
-            BigInteger result = calculatorService.calculateSum(input);
+            String result = calculatorService.calculateSum(input);
             // 결과 출력
             OutputView.printResult(result);
         } catch (IllegalArgumentException e) {
