@@ -2,6 +2,8 @@ package calculator.controller;
 
 import java.math.BigInteger;
 
+import calculator.view.InputView;
+
 /**
  * 계산기 애플리케이션의 제어를 담당하는 컨트롤러 클래스
  * 사용자 입력을 받아 계산 서비스를 호출하고 결과를 출력하는 역할을 수행합니다.
