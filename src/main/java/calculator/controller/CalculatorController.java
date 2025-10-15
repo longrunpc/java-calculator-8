@@ -26,16 +26,11 @@ public class CalculatorController {
      * 잘못된 입력이 들어온 경우 에러 메시지 출력
      */
     public void calculateSumByString() {
-        try {
-            // 입력
-            String input = InputView.readInput();
-            // 합계 계산
-            String result = calculatorService.calculateSum(input);
-            // 결과 출력
-            OutputView.printResult(result);
-        } catch (IllegalArgumentException e) {
-            // 예외 발생 시 에러 메시지 출력
-            OutputView.printError(e.getMessage());
-        }
+        // 입력
+        String input = InputView.readInput();
+        // 합계 계산
+        String result = calculatorService.calculateSum(input);
+        // 결과 출력
+        OutputView.printResult(result);
     }
 }
