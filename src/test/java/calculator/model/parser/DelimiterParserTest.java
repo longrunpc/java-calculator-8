@@ -7,16 +7,18 @@ import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
-@DisplayName("문자열 구분자 파싱 테스트")
+@Tag("unit")
+@DisplayName("문자열 구분자 파싱 단위 테스트")
 class DelimiterParserTest {
 
     private final Parser parser = new DelimiterParser();
-    
+
     @Nested
-    @DisplayName("문자열을 입력받아 숫자 리스트로 파싱하는 메서드")
+    @DisplayName("숫자 리스트를 파싱하는 테스트")
     class ParseNumbers {
         @Test
         @DisplayName("빈 문자열 입력 시 빈 리스트 반환")
@@ -30,6 +32,31 @@ class DelimiterParserTest {
             // then
             assertThat(numbers).isEmpty();
         }
-    }
 
+        @Test
+        @DisplayName("커스텀 구분자가 없는 숫자 리스트 파싱")
+        void parseCommaSeparatedNumbers() {
+            // given
+            String input = "1,2:3";
+
+            // when
+            List<BigInteger> numbers = parser.parseNumbers(input);
+
+            // then
+            assertThat(numbers).isEqualTo(List.of(BigInteger.valueOf(1), BigInteger.valueOf(2), BigInteger.valueOf(3)));
+        }
+        
+        @Test
+        @DisplayName("커스텀 구분자가 있는 숫자 리스트 파싱")
+        void parseCustomDelimiterSeparatedNumbers() {
+            // given
+            String input = "//;\n1,2;3";
+
+            // when
+            List<BigInteger> numbers = parser.parseNumbers(input);
+
+            // then
+            assertThat(numbers).isEqualTo(List.of(BigInteger.valueOf(1), BigInteger.valueOf(2), BigInteger.valueOf(3)));
+        }
+    }
 }

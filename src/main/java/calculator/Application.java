@@ -1,12 +1,15 @@
 package calculator;
 
 import calculator.controller.CalculatorController;
+import calculator.service.CalculatorService;
 
 public class Application {
     public static void main(String[] args) {
-        // 의존성 주입
+        // // 의존성 주입
+        // CalculatorService calculatorService = new CalculatorService();
+        // CalculatorController calculatorController = new CalculatorController(calculatorService);
         
-        // 계산 로직 실행
-        calculatorController.calculateSumByString();
+        // // 계산 로직 실행
+        // calculatorController.calculateSumByString();
     }
 }
