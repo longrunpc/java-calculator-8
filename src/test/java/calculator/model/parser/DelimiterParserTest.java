@@ -57,7 +57,7 @@ class ParserTest {
         @DisplayName("커스텀 구분자가 있는 숫자 리스트 파싱")
         void parseCustomDelimiterSeparatedNumbers() {
             // given
-            String input = "//;\n1,2;3";
+            String input = "//;\\n1,2;3";
 
             // when
             List<BigInteger> numbers = parser.parseNumbers(input);
@@ -70,7 +70,7 @@ class ParserTest {
         @DisplayName("숫자 리스트 파싱 예외")
         void parseException() {
             // given
-            String input = "//;\n1:2[3";
+            String input = "//;\\n1:2[3";
 
             // when
             assertThatThrownBy(() -> parser.parseNumbers(input))

@@ -16,7 +16,7 @@ public class DelimiterParser implements Parser {
     // 기본 구분자 리스트
     private static final List<String> DEFAULT_DELIMITERS = List.of(",", ":");
     // 커스텀 구분자 패턴
-    private static final Pattern CUSTOM_DELIMITER_PREFIX = Pattern.compile("//(.)\n(.*)");
+    private static final Pattern CUSTOM_DELIMITER_PREFIX = Pattern.compile("//(.)\\\\n(.*)");
 
     // 파싱 결과 레코드
     private record ParseResult(String delimiterRegex, String numberSection) {
