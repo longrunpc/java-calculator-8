@@ -16,18 +16,18 @@ public class PositiveNumberCalculator implements Calculator {
      */
     @Override
     public BigInteger calculateSum(List<BigInteger> numbers) {
-        checkNegativeNumbers(numbers);
+        checkNonPositiveNumbers(numbers);
         return numbers.stream()
                 .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
     /**
-     * 숫자 리스트를 입력받아 음수가 있는지 확인하는 메서드
+     * 숫자 리스트를 입력받아 양수가 아닌 값이 있는지 확인하는 메서드
      * @param numbers
      */
-    private void checkNegativeNumbers(List<BigInteger> numbers) {
-        if (numbers.stream().anyMatch(n -> n.compareTo(BigInteger.ZERO) < 0)) {
-            throw new IllegalArgumentException(ErrorMessages.NEGATIVE_NUMBER_INCLUDED);
+    private void checkNonPositiveNumbers(List<BigInteger> numbers) {
+        if (numbers.stream().anyMatch(n -> n.compareTo(BigInteger.ZERO) <= 0)) {
+            throw new IllegalArgumentException(ErrorMessages.NON_POSITIVE_NUMBER_INCLUDED);
         }
     }
 }
