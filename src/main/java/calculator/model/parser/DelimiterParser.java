@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import calculator.common.ErrorMessages;
+
 /**
  * 문자열 구분자로 숫자 리스트를 파싱하는 클래스
  */
@@ -31,7 +33,7 @@ public class DelimiterParser implements Parser {
                     .map(BigInteger::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            throw new IllegalArgumentException("정수로 변환할 수 없는 값이 포함되어 있습니다.", e);
+            throw new IllegalArgumentException(ErrorMessages.INVALID_NUMBER_FORMAT, e);
         }
     }
 

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import calculator.common.ErrorMessages;
+
 @DisplayName("입력 검증 테스트")
 class InputValidatorTest {
 
@@ -36,7 +38,7 @@ class InputValidatorTest {
             // when & then
             assertThatThrownBy(() -> InputValidator.validateInput(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("공백이 포함되어 있습니다.");
+                    .hasMessage(ErrorMessages.WHITESPACE_INCLUDED);
         }
     }
 }

@@ -3,6 +3,8 @@ package calculator.model.calculator;
 import java.math.BigInteger;
 import java.util.List;
 
+import calculator.common.ErrorMessages;
+
 /**
  * 양수 값만 허용하는 계산기 클래스
  */
@@ -25,7 +27,7 @@ public class PositiveNumberCalculator implements Calculator {
      */
     private void checkNegativeNumbers(List<BigInteger> numbers) {
         if (numbers.stream().anyMatch(n -> n.compareTo(BigInteger.ZERO) < 0)) {
-            throw new IllegalArgumentException("음수값이 포함되어 있습니다.");
+            throw new IllegalArgumentException(ErrorMessages.NEGATIVE_NUMBER_INCLUDED);
         }
     }
 }

@@ -1,5 +1,7 @@
 package calculator.view.validator;
 
+import calculator.common.ErrorMessages;
+
 /**
  * 입력 유효성 검증 클래스
  */
@@ -18,7 +20,7 @@ public class InputValidator {
      */
     private static void containsWhitespace(String input) {
         if (input.contains(" ")) {
-            throw new IllegalArgumentException("공백이 포함되어 있습니다.");
+            throw new IllegalArgumentException(ErrorMessages.WHITESPACE_INCLUDED);
         }
     }
 }
