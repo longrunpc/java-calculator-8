@@ -1,8 +1,8 @@
 package calculator.controller;
 
 import calculator.service.CalculatorService;
-import calculator.view.InputView;
-import calculator.view.OutputView;
+import calculator.view.input.InputView;
+import calculator.view.output.OutputView;
 
 /**
  * 계산기 애플리케이션의 제어를 담당하는 컨트롤러 클래스
