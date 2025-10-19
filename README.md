@@ -20,6 +20,10 @@
 ### 예외 처리
 - 사용자가 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생시킨 후 애플리케이션은 종료되어야 한다.
 
+### 요구사항 구체화
+- 커스텀 구분자는 문자열 앞부분의 `"//"`와 `"\n"` 사이에 위치하는 문자라고 정의되었기 때문에 문자열은 배제
+- 입력값이 구분자와 양수로 구성된 문자열이므로 음수값과 0, 띄어쓰기는 예외 처리
+
 ---
 
 ## 입출력 요구 사항
@@ -43,38 +47,84 @@
 
 ---
 
+## 프로젝트 구조
+
+```
+calculator/
+├── Application.java (Main)
+├── controller/
+│   └── CalculatorController.java
+├── service/
+│   ├── CalculatorService.java (Interface)
+│   └── CalculatorServiceImpl.java
+├── model/
+│   ├── parser/
+│   │   ├── Parser.java (Interface)
+│   │   └── DelimiterParser.java
+│   └── calculator/
+│       ├── Calculator.java (Interface)
+│       └── PositiveNumberCalculator.java
+├── view/
+│   ├── input/
+│   │   └── InputView.java
+│   ├── output/
+│   │   └── OutputView.java
+│   └── validator/
+│       └── InputValidator.java
+└── common/
+    └── ErrorMessages.java
+```
+
+### 레이어별 역할
+
+#### View Layer
+- **책임**: 사용자와의 입출력 인터페이스
+- **InputView**: Console을 통한 사용자 입력
+- **OutputView**: 계산 결과 및 에러 메시지 출력
+- **InputValidator**: 입력값의 기본 형식 검증 (공백 체크)
+
+#### Controller Layer
+- **책임**: 애플리케이션 흐름 제어
+- **CalculatorController**: View에서 입력을 받아 Service를 호출하고 결과를 View로 전달
+
+#### ⚙️ Service Layer
+- **책임**: 비즈니스 로직 조율 및 데이터 변환
+- **CalculatorService**: Parser와 Calculator를 조합하여 문자열 입력을 계산 결과 문자열로 변환
+- 데이터 흐름: `문자열 → 숫자 리스트 → 합계 → 문자열`
+
+#### 🧮 Model Layer
+- **책임**: 핵심 비즈니스 로직
+- **Parser**: 구분자 기반 문자열 파싱 (기본 구분자: `,` `:` / 커스텀 구분자: `//;\n`)
+- **Calculator**: 숫자 리스트 합산 및 양수 검증 (0 이하 값 예외 처리)
+
+#### 🔧 Common
+- **책임**: 공통 상수 및 유틸리티
+- **ErrorMessages**: 애플리케이션 전역 에러 메시지 상수 관리
+
+---
+
 ## 구현 기능 목록
 
-### View
-- [ ] 사용자에게 입력 메시지 출력 기능
-- [ ] 사용자로부터 문자열 입력 받기 기능
-- [ ] 계산 결과 출력 기능
-- [ ] 에러 메시지 출력 기능
+### 1. View Layer
+- [x] **InputView**: 사용자 입력 받기
+- [x] **OutputView**: 결과 출력
+- [x] **InputValidator**: 입력 검증 (공백 체크)
 
-### Model
-- [ ] 빈 문자열 처리 (0 반환)
-- [ ] 기본 구분자(쉼표, 콜론) 파싱 기능
-  - [ ] 쉼표(`,`)로 구분된 숫자 추출
-  - [ ] 콜론(`:`)로 구분된 숫자 추출
-  - [ ] 혼합 구분자 처리
-- [ ] 커스텀 구분자 파싱 기능
-  - [ ] `//`와 `\n` 사이의 커스텀 구분자 추출
-  - [ ] 커스텀 구분자로 숫자 분리
-- [ ] 숫자 합산 기능
-- [ ] 입력 유효성 검증 기능
-  - [ ] 음수 입력 체크
-  - [ ] 숫자가 아닌 값 체크
-  - [ ] 잘못된 형식 체크
-- [ ] 예외 처리 (`IllegalArgumentException`)
+### 2. Controller Layer
+- [x] **CalculatorController**: View ↔ Service 연결 및 흐름 제어
 
-### Controller
-- [ ] View와 Model 연결
-- [ ] 입력값을 Model에 전달
-- [ ] 계산 결과를 View에 전달
-- [ ] 예외 발생 시 처리 및 애플리케이션 종료
+### 3. Service Layer
+- [x] **CalculatorService**: model들을 조합하여 계산 수행
 
-### Test
-- [ ] 빈 문자열 입력 테스트
-- [ ] 기본 구분자(쉼표, 콜론) 테스트
-- [ ] 커스텀 구분자 테스트
-- [ ] 예외 상황 테스트 (음수, 잘못된 형식)
+### 4. Model Layer
+- [x] **Parser**: 문자열을 숫자 리스트로 파싱 (기본/커스텀 구분자 처리)
+- [x] **Calculator**: 숫자 리스트 합산
+
+### 5. Common
+- [x] **ErrorMessages**: 에러 메시지 관리
+
+### 6. Test
+- [x] **ApplicationTest**: 통합 테스트
+- [x] **ParserTest**: 파싱 단위 테스트
+- [x] **CalculatorTest**: 계산 단위 테스트
+- [x] **InputValidatorTest**: 입력 검증 단위 테스트
